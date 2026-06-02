@@ -1,6 +1,8 @@
 import sequelize from "../db/config.js"
 import { Usuario } from "./Usuario.js";
 import { Publicacion } from "./Publicacion.js";
+import { Fotografia } from "./Fotografia.js";
+
 
 
 
