@@ -1,0 +1,30 @@
+{
+  "name": "fotaza2-1",
+  "version": "1.0.0",
+  "description": "Trabajo practico integrados de la materia desarrollo web 2",
+  "homepage": "https://github.com/Fernando-Suarez/fotaza2#readme",
+  "bugs": {
+    "url": "https://github.com/Fernando-Suarez/fotaza2/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fernando-Suarez/fotaza2.git"
+  },
+  "license": "ISC",
+  "author": "Fernando Suarez",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "pg": "^8.21.0",
+    "pg-hstore": "^2.3.4",
+    "pug": "^3.0.4",
+    "sequelize": "^6.37.8",
+    "zod": "^4.4.3"
+  }
+}
