@@ -4,7 +4,10 @@ import { Publicacion } from "./Publicacion.js";
 import { Fotografia } from "./Fotografia.js";
 import { Etiqueta } from "./Etiqueta.js";
 import { PublicacionEtiqueta } from "./PublicacionEtiqueta.js";
-
+import { Comentario } from "./Comentario.js";
+import { Valoracion } from "./Valoracion.js";
+import { Seguidor } from "./Seguidor.js";
+import { Denuncia } from "./Denuncia.js";
 
 
 
