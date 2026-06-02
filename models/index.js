@@ -11,6 +11,10 @@ import { Denuncia } from "./Denuncia.js";
 import { Motivo } from "./Motivo.js";
 import { Notificacion } from "./Notificacion.js";
 import { Interes } from "./Interes.js";
+import { Coleccion } from "./Coleccion.js";
+import { ColeccionPublicacion } from "./ColeccionPublicacion.js";
+import { Mensaje } from "./Mensaje.js";
+
 
 
 

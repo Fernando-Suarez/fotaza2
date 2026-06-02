@@ -27,7 +27,7 @@ Valoracion.init({
     indexes:[ // garantiza una sola valoracion de un usuario sobre una sola  fotografia
         {
             unique:true,
-            fields:['úsuario_id','fotografia_id']
+            fields:['usuario_id','fotografia_id']
         }
     ]
     
