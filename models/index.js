@@ -8,7 +8,9 @@ import { Comentario } from "./Comentario.js";
 import { Valoracion } from "./Valoracion.js";
 import { Seguidor } from "./Seguidor.js";
 import { Denuncia } from "./Denuncia.js";
+import { Motivo } from "./Motivo.js";
 import { Notificacion } from "./Notificacion.js";
+import { Interes } from "./Interes.js";
 
 
 
