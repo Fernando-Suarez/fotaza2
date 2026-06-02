@@ -8,6 +8,7 @@ import { Comentario } from "./Comentario.js";
 import { Valoracion } from "./Valoracion.js";
 import { Seguidor } from "./Seguidor.js";
 import { Denuncia } from "./Denuncia.js";
+import { Notificacion } from "./Notificacion.js";
 
 
 
