@@ -16,11 +16,20 @@ Fotografia.init({
         allowNull:false
     },
     licencia:{
-        type: DataTypes.STRING(50),
+        type: DataTypes.ENUM('COPYRIGHT','SIN_COPYRIGHT'),
         allowNull: false
     },marca_agua:{
         type:DataTypes.BOOLEAN,
         defaultValue:false
+    },
+    texto_marca_agua:{
+        type: DataTypes.STRING(100),
+        allowNull: true
+    },
+    comentarios_habilitados:{
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
     },
     publicacion_id:{
         type: DataTypes.INTEGER,
@@ -29,8 +38,8 @@ Fotografia.init({
 
 },{
     sequelize,
-    modelName:'Publicacion',
-    tableName: 'publicaciones',
+    modelName:'Fotografia',
+    tableName: 'fotografias',
     createdAt: true,
     updatedAt: true,
 })
