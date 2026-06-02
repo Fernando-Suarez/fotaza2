@@ -3,6 +3,7 @@ import { Usuario } from "./Usuario.js";
 import { Publicacion } from "./Publicacion.js";
 import { Fotografia } from "./Fotografia.js";
 import { Etiqueta } from "./Etiqueta.js";
+import { PublicacionEtiqueta } from "./PublicacionEtiqueta.js";
 
 
 
