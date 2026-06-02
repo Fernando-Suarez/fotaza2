@@ -1,4 +1,6 @@
 import sequelize from "../db/config.js"
+import { Usuario } from "./Usuario.js";
+
 
 
 export async function connectDatabase(){
