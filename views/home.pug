@@ -1,0 +1,49 @@
+extends layout
+
+block content
+
+    .d-flex.justify-content-between.align-items-center.mb-4
+        h1 Feed de Publicaciones
+
+        if user
+            a.btn.btn-primary(href="/publicaciones/crear")
+                i.bi.bi-plus-circle
+                |  Nueva publicación
+
+    if publicaciones && publicaciones.length > 0
+
+        .row
+
+            each publicacion in publicaciones
+
+                .col-md-6.col-lg-4.mb-4
+
+                    .card.shadow-sm.h-100
+
+                        if publicacion.Fotografias && publicacion.Fotografias.length > 0
+                            img.card-img-top(
+                                src=publicacion.Fotografias[0].ruta
+                                alt=publicacion.titulo
+                            )
+
+                        .card-body
+
+                            h5.card-title= publicacion.titulo
+
+                            p.text-muted.mb-2
+                                small
+                                    | Autor:
+                                //    |  #{publicacion.Usuario?.nombre}
+
+                            p.card-text
+                                = publicacion.descripcion
+
+                            a.btn.btn-outline-primary(
+                                href=`/publicaciones/${publicacion.id}`
+                            )
+                                | Ver publicación
+
+    else
+
+        .alert.alert-info
+            | No hay publicaciones todavía.

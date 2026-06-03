@@ -1,0 +1,77 @@
+extends ../layout
+
+block content
+
+    .row.justify-content-center
+    .col-md-6.col-lg-5
+
+    .card.shadow
+
+        .card-header.bg-success.text-white.text-center
+            h3.mb-0 Crear Cuenta
+
+        .card-body
+
+            form(action="/register" method="POST")
+
+            .mb-3
+                label.form-label(for="nombre")
+                | Nombre de Usuario
+
+                input.form-control(
+                type="text"
+                id="nombre"
+                name="nombre"
+                required
+                maxlength="100"
+                placeholder="Tu nombre"
+                )
+
+            .mb-3
+                label.form-label(for="email")
+                | Correo Electrónico
+
+                input.form-control(
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="ejemplo@email.com"
+                )
+
+            .mb-3
+                label.form-label(for="password")
+                | Contraseña
+
+                input.form-control(
+                type="password"
+                id="password"
+                name="password"
+                required
+                minlength="6"
+                placeholder="********"
+                )
+
+            .mb-3
+                label.form-label(for="confirmPassword")
+                | Confirmar Contraseña
+
+                input.form-control(
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                required
+                minlength="6"
+                placeholder="********"
+                )
+
+            button.btn.btn-success.w-100(type="submit")
+                i.bi.bi-person-plus-fill
+                |  Registrarse
+
+        .card-footer.text-center
+
+            p.mb-0
+            | ¿Ya tienes cuenta?
+            a.ms-1(href="/login")
+                | Iniciar sesión
