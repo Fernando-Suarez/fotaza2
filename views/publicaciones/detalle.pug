@@ -1,0 +1,94 @@
+extends ../layout
+
+block content
+
+    .row
+
+        .col-md-8
+
+            .card.shadow
+
+                if publicacion.Fotografias && publicacion.Fotografias.length > 0
+
+                    img.card-img-top(
+                        src=publicacion.Fotografias[0].ruta
+                        alt=publicacion.titulo
+                    )
+
+                .card-body
+
+                    h2= publicacion.titulo
+
+                    p.text-muted
+                        | Autor:
+                    //    |  #{publicacion.Usuario?.nombre}
+
+                    p
+                        = publicacion.descripcion
+
+                    hr
+
+                    h5 Valoración promedio
+
+                    p
+                        = promedio || 0
+                        |  ⭐
+
+                    hr
+
+                    h5 Etiquetas
+
+                    if publicacion.Etiquetas
+
+                        each etiqueta in publicacion.Etiquetas
+
+                            span.badge.bg-primary.me-1
+                                = etiqueta.titulo
+
+                    hr
+
+                    h5 Comentarios
+
+                    if comentarios && comentarios.length > 0
+
+                        each comentario in comentarios
+
+                            .border.rounded.p-2.mb-2
+
+                                strong
+                                //    = comentario.Usuario?.nombre
+
+                                p.mb-0
+                                    = comentario.texto
+
+                    else
+
+                        p.text-muted
+                            | Todavía no hay comentarios.
+
+                    if user
+
+                        hr
+
+                        form(
+                            action="/comentarios"
+                            method="POST"
+                        )
+
+                            input(
+                                type="hidden"
+                                name="publicacion_id"
+                                value=publicacion.id
+                            )
+
+                            .mb-3
+
+                                textarea.form-control(
+                                    name="texto"
+                                    rows="3"
+                                    placeholder="Escribe un comentario..."
+                                    required
+                                )
+
+                            button.btn.btn-primary(type="submit")
+                                | Comentar

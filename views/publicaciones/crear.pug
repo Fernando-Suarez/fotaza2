@@ -1,0 +1,82 @@
+extends ../layout
+
+block content
+
+    .row.justify-content-center
+
+        .col-md-8
+
+            .card.shadow
+
+                .card-header.bg-primary.text-white
+                    h3.mb-0 Crear Publicación
+
+                .card-body
+
+                    form(
+                        action="/publicaciones"
+                        method="POST"
+                        enctype="multipart/form-data"
+                    )
+
+                        .mb-3
+                            label.form-label(for="titulo")
+                                | Título
+
+                            input.form-control(
+                                type="text"
+                                id="titulo"
+                                name="titulo"
+                                required
+                            )
+
+                        .mb-3
+                            label.form-label(for="descripcion")
+                                | Descripción
+
+                            textarea.form-control(
+                                id="descripcion"
+                                name="descripcion"
+                                rows="4"
+                            )
+
+                        .mb-3
+                            label.form-label(for="licencia")
+                                | Licencia
+
+                            select.form-select(
+                                id="licencia"
+                                name="licencia"
+                            )
+                                option(value="copyright")
+                                    | Con Copyright
+
+                                option(value="libre")
+                                    | Sin Copyright
+
+                        .mb-3
+                            label.form-label(for="imagen")
+                                | Imagen
+
+                            input.form-control(
+                                type="file"
+                                id="imagen"
+                                name="imagen"
+                                accept="image/*"
+                                required
+                            )
+
+                        .mb-3
+                            label.form-label(for="etiquetas")
+                                | Etiquetas
+
+                            input.form-control(
+                                type="text"
+                                id="etiquetas"
+                                name="etiquetas"
+                                placeholder="naturaleza, perros, viajes"
+                            )
+
+                        button.btn.btn-success(type="submit")
+                            i.bi.bi-check-circle
+                            |  Publicar
