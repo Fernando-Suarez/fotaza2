@@ -223,7 +223,7 @@ export async function connectDatabase() {
     try {
         await sequelize.authenticate();
         console.log("[+] Conexion a db establecida");
-        await sequelize.sync({ alter: true });
+        await sequelize.sync({ alter: true, force:true });
         console.log("[+] Sincronizando los modelos");
     } catch (error) {
         console.error("[+] Error en la conexion a la db", error);

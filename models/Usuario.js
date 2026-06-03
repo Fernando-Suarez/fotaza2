@@ -27,9 +27,9 @@ Usuario.init({
 
     },
     rol:{
-        type: DataTypes.ENUM('admin','cliente'),
+        type: DataTypes.ENUM('ADMIN','CLIENTE'),
         allowNull:false,
-        defaultValue: 'cliente'
+        defaultValue: 'CLIENTE'
     },
     activo:{
         type: DataTypes.BOOLEAN,
@@ -45,6 +45,6 @@ Usuario.init({
     sequelize,
     modelName:'Usuario',
     tableName: 'usuarios',
-    createdAt: true,
-    updatedAt: true,
+    timestamps: true,
+    paranoid: true
 })

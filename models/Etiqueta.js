@@ -21,8 +21,8 @@ Etiqueta.init({
 
 },{
     sequelize,
-    modelName:'Publicacion',
-    tableName: 'publicaciones',
+    modelName:'Etiqueta',
+    tableName: 'etiquetas',
     createdAt: true,
     updatedAt: true,
 })

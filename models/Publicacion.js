@@ -31,7 +31,6 @@ Publicacion.init({
     sequelize,
     modelName:'Publicacion',
     tableName: 'publicaciones',
-    createdAt: true,
-    updatedAt: true,
+    timestamps: true
 })
 
