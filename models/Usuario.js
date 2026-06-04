@@ -1,7 +1,13 @@
 import {DataTypes,Model} from 'sequelize';
 import sequelize from '../db/config.js';
+import bcrypt from 'bcrypt';
 
-export class Usuario extends Model {}
+
+export class Usuario extends Model {
+    async validatePass(password){
+        return bcrypt.compare(password,this.password);
+    }
+}
 
 Usuario.init({
     id:{
@@ -46,5 +52,13 @@ Usuario.init({
     modelName:'Usuario',
     tableName: 'usuarios',
     timestamps: true,
-    paranoid: true
+    paranoid: true,
+    hooks:{
+        beforeSave: async (usuario) => {
+            if(!usuario.password)return;
+            if(!usuario.changed('password')) return;
+            const hashedPass = await bcrypt.hash(usuario.password, 10);
+            usuario.password = hashedPass;
+        }
+    }
 })
