@@ -12,66 +12,66 @@ block content
 
         .card-body
 
-            form(action="/register" method="POST")
+            form(action="/auth/signup" method="POST")
 
-            .mb-3
-                label.form-label(for="nombre")
-                | Nombre de Usuario
+                .mb-3
+                    label.form-label(for="nombre")
+                    | Nombre de Usuario
 
-                input.form-control(
-                type="text"
-                id="nombre"
-                name="nombre"
-                required
-                maxlength="100"
-                placeholder="Tu nombre"
-                )
+                    input.form-control(
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    required
+                    maxlength="100"
+                    placeholder="Tu nombre"
+                    )
 
-            .mb-3
-                label.form-label(for="email")
-                | Correo Electrónico
+                .mb-3
+                    label.form-label(for="email")
+                    | Correo Electrónico
 
-                input.form-control(
-                type="email"
-                id="email"
-                name="email"
-                required
-                placeholder="ejemplo@email.com"
-                )
+                    input.form-control(
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="ejemplo@email.com"
+                    )
 
-            .mb-3
-                label.form-label(for="password")
-                | Contraseña
+                .mb-3
+                    label.form-label(for="password")
+                    | Contraseña
 
-                input.form-control(
-                type="password"
-                id="password"
-                name="password"
-                required
-                minlength="6"
-                placeholder="********"
-                )
+                    input.form-control(
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                    minlength="6"
+                    placeholder="********"
+                    )
 
-            .mb-3
-                label.form-label(for="confirmPassword")
-                | Confirmar Contraseña
+                .mb-3
+                    label.form-label(for="confirmPassword")
+                    | Confirmar Contraseña
 
-                input.form-control(
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                required
-                minlength="6"
-                placeholder="********"
-                )
+                    input.form-control(
+                    type="password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    required
+                    minlength="6"
+                    placeholder="********"
+                    )
 
-            button.btn.btn-success.w-100(type="submit")
-                i.bi.bi-person-plus-fill
-                |  Registrarse
+                button.btn.btn-success.w-100(type="submit")
+                    i.bi.bi-person-plus-fill
+                    |  Registrarse
 
         .card-footer.text-center
 
             p.mb-0
             | ¿Ya tienes cuenta?
-            a.ms-1(href="/login")
+            a.ms-1(href="/auth/login")
                 | Iniciar sesión

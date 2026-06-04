@@ -1,0 +1,83 @@
+extends layout
+
+block content
+
+    .card.shadow.mb-4
+
+        .card-body
+
+            h2
+                = usuario.nombre
+
+            p.text-muted
+                = usuario.email
+
+            .row.mt-3
+
+                .col-md-3
+
+                    .card.text-center
+
+                        .card-body
+
+                            h4
+                                = cantidadSeguidores
+
+                            p.mb-0
+                                | Seguidores
+
+                .col-md-3
+
+                    .card.text-center
+
+                        .card-body
+
+                            h4
+                                = cantidadSeguidos
+
+                            p.mb-0
+                                | Seguidos
+
+            if user && user.id !== usuario.id
+
+                form(
+                    action=`/seguir/${usuario.id}`
+                    method="POST"
+                    class="mt-3"
+                )
+
+                    button.btn.btn-primary(type="submit")
+                        | Seguir
+
+    h3.mb-3 Publicaciones
+
+    if publicaciones && publicaciones.length > 0
+
+        .row
+
+            each publicacion in publicaciones
+
+                .col-md-4.mb-4
+
+                    .card
+
+                        if publicacion.Fotografias && publicacion.Fotografias.length > 0
+
+                            img.card-img-top(
+                                src=publicacion.Fotografias[0].ruta
+                            )
+
+                        .card-body
+
+                            h5
+                                = publicacion.titulo
+
+                            a.btn.btn-outline-primary(
+                                href=`/publicaciones/${publicacion.id}`
+                            )
+                                | Ver
+
+    else
+
+        .alert.alert-info
+            | Este usuario todavía no tiene publicaciones.
