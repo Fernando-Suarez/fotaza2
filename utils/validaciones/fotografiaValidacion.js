@@ -5,8 +5,8 @@ const Fotografia = z.object({
             licencia: z.enum(["COPYRIGHT","SIN_COPYRIGHT"]),
 })
 
-export function validarFotografia(fotografia){
-    const result = Fotografia.safeParse(fotografia);
+export function validarFotografia(licencia){
+    const result = Fotografia.safeParse(licencia);
 if (!result.success) {
     return {success: false ,errors: z.flattenError(result.error).fieldErrors        
     }

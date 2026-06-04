@@ -2,7 +2,8 @@ import * as z from 'zod';
 
 //ESQUEMA
 const Publicacion = z.object({
-            titulo: z.string()
+            titulo: z.string(),
+            descripcion: z.string().optional()
 })
 
 export function validarPublicacion(publicacion){
