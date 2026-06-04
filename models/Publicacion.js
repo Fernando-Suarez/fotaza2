@@ -20,7 +20,7 @@ Publicacion.init({
     },
     descripcion:{
         type: DataTypes.TEXT,
-        allowNull: false
+        allowNull: true
     },
     usuario_id:{
         type: DataTypes.INTEGER,
