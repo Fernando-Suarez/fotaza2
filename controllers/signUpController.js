@@ -14,7 +14,7 @@ export async function usuarioPorEmail(email){
 }
 
 
-export const getSignUpForm = async (req,res) =>{
+export const getSignUpForm = (req,res) =>{
     try { 
         res.status(200).render('auth/signup');
     } catch (error) {
@@ -27,19 +27,23 @@ export const signUp = async (req,res)=>{
     try {
         const {nombre,email,password,confirmPassword} = req.body;
         const validacion = validarRegistro({nombre,email,password,confirmPassword});
-        const emailEncontrado = await usuarioPorEmail(email);
         if(!validacion.success){
-            res.status(400).render('auth/signup',{error: validacion.errors});
-            return;
+            res.status(400).render('auth/signup',{error: validacion.errors.confirmPassword});
+            return
         }
-        if(!emailEncontrado){
+        const usuarioEncontrado = await usuarioPorEmail(email);
+        if(usuarioEncontrado){
             res.status(400).render('auth/signup', {error: 'El email ya se encuentra registrado'});
-        }else{
-            const usuario = await Usuario.create({nombre,email,password});
-            res.status(200).render('auth/login')
+            return
         }
+        const usuario = await Usuario.create({nombre,email,password});
+        req.session.user = usuario.id;
+        res.redirect('/');
+        return;
+        
     } catch (error) {
         console.log('post: signup',error);
+        res.redirect('/auth/signup');
     }
 
 }
