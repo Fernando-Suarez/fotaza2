@@ -7,6 +7,7 @@ import authRouter from './routes/authRouter.js';
 import publicacionesRouter from './routes/publicacionesRouter.js';
 import fotografiaRouter from './routes/fotografiasRouter.js';
 import comentariosRouter from './routes/comentarioRouter.js';
+import valoracionesRouter from './routes/valoracionRouter.js';
 
 import session from 'express-session';
 import { authMiddleware } from './middlewares/authMiddleware.js';
@@ -48,6 +49,7 @@ app.use('/auth', authRouter);
 app.use('/publicaciones', publicacionesRouter);
 app.use('/fotografias', fotografiaRouter);
 app.use('/comentarios', comentariosRouter);
+app.use('/valoraciones', valoracionesRouter);
 
 app.get('/perfil', (req,res) =>{
     

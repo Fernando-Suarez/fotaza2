@@ -32,12 +32,14 @@ block content
 
                     p
                         = promedio || 0
-                        |  ⭐
+                        |  ⭐ (
+                        = cantidadValoraciones    
+                        | votos)
 
                     hr
                     if user
 
-                    h5 Valorar fotografía
+                        h5 Valorar fotografía
 
                         form(action="/valoraciones" method="POST")
 
@@ -66,7 +68,7 @@ block content
 
                             button.btn.btn-warning(type="submit")
                                 | Valorar
-                    hr
+                        hr
 
                     h5 Etiquetas
 
@@ -79,6 +81,8 @@ block content
 
                     hr
 
+                    if publicacion.Fotografia[0].comentarios_habilitados
+
                     h5 Comentarios
 
                     if comentarios && comentarios.length > 0
@@ -86,7 +90,11 @@ block content
                         each comentario in comentarios
 
                             .border.rounded.p-2.mb-2
-
+                                //img.rounded-circle(
+                                    src=`/usuarios/avatar/${comentario.Usuario.id}`
+                                    width="40"
+                                    height="40"
+                                //)
                                 strong
                                     = comentario.Usuario.nombre
 

@@ -5,6 +5,8 @@ import { Etiqueta } from "../models/Etiqueta.js";
 import { validarFotografia } from "../utils/validaciones/fotografiaValidacion.js";
 import { validarPublicacion } from "../utils/validaciones/publicacionValidacion.js";
 import { Comentario } from "../models/Comentario.js";
+import { Valoracion } from "../models/Valoracion.js";
+import { where } from "sequelize";
 
 export async function crearPublicacion(req,res){
 
@@ -132,12 +134,29 @@ const comentarios = await Comentario.findAll({
     include:[Usuario]
 });
 
+const valoraciones = await Valoracion.findAll({
+    where:{fotografia_id: foto.id}
+})
+
+let promedio = 0;
+
+for(const valoracion of valoraciones){
+    promedio += valoracion.puntaje;
+}
+if(valoraciones.length > 0){
+    promedio = (promedio / valoraciones.length).toFixed(1);
+}
+
+
+
     res.render(
         'publicaciones/detalle',
         {
             user,
             publicacion,
-            comentarios
+            comentarios,
+            promedio: promedio,
+            cantidadValoraciones: valoraciones.length
         }
     );
     } catch (error) {
