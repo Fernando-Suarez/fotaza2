@@ -8,10 +8,10 @@ block content
 
             .card.shadow
 
-                if publicacion.Fotografias && publicacion.Fotografias.length > 0
+                if publicacion.Fotografia && publicacion.Fotografia.length > 0
 
                     img.card-img-top(
-                        src=publicacion.Fotografias[0].ruta
+                        src=`/fotografias/${publicacion.Fotografia[0].id}`
                         alt=publicacion.titulo
                     )
 
@@ -21,7 +21,7 @@ block content
 
                     p.text-muted
                         | Autor:
-                    //    |  #{publicacion.Usuario?.nombre}
+                        = publicacion.Usuario ? publicacion.Usuario.nombre : 'Desconocido'
 
                     p
                         = publicacion.descripcion
