@@ -1,5 +1,7 @@
 import { Fotografia } from "../models/Fotografia.js";
 import { Publicacion } from "../models/Publicacion.js";
+import { Usuario } from "../models/Usuario.js";
+import { Etiqueta } from "../models/Etiqueta.js";
 import { validarFotografia } from "../utils/validaciones/fotografiaValidacion.js";
 import { validarPublicacion } from "../utils/validaciones/publicacionValidacion.js";
 
@@ -81,7 +83,7 @@ export async function crearPublicacion(req,res){
         });
 
         return res.redirect(
-            `/publicaciones/${publicacion.id}`
+            `/publicaciones/${publicacion.id}` 
         );
 
     }catch(error){
@@ -90,4 +92,36 @@ export async function crearPublicacion(req,res){
 
         return res.redirect('/');
     }
+}
+
+export async function detallePublicacion(req,res){
+    let user = null;
+        if(req.session.user){
+            user = await Usuario.findByPk(req.session.user);
+        }
+
+    const publicacion =
+        await Publicacion.findByPk(
+            req.params.id,
+            {
+                include:[
+                    Fotografia,
+                    Usuario,
+                ]
+            }
+        );
+
+    if(!publicacion){
+
+        return res.redirect('/');
+    }
+
+    res.render(
+        'publicaciones/detalle',
+        {
+            user,
+            publicacion,
+            comentarios:[]
+        }
+    );
 }
