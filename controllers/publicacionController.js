@@ -4,6 +4,7 @@ import { Usuario } from "../models/Usuario.js";
 import { Etiqueta } from "../models/Etiqueta.js";
 import { validarFotografia } from "../utils/validaciones/fotografiaValidacion.js";
 import { validarPublicacion } from "../utils/validaciones/publicacionValidacion.js";
+import { Comentario } from "../models/Comentario.js";
 
 export async function crearPublicacion(req,res){
 
@@ -49,14 +50,7 @@ export async function crearPublicacion(req,res){
         }
 
         if(!req.file){
-
-            return res.render(
-                'publicaciones/create',
-                {
-                    error:
-                    'Debe seleccionar una imagen'
-                }
-            );
+            return res.render('publicaciones/create',{error:'Debe seleccionar una imagen'});
         }
 
         const publicacion =
@@ -82,46 +76,72 @@ export async function crearPublicacion(req,res){
 
         });
 
-        return res.redirect(
-            `/publicaciones/${publicacion.id}` 
-        );
+        res.redirect(`/publicaciones/${publicacion.id}`);
+        return 
 
     }catch(error){
 
         console.log(error);
 
-        return res.redirect('/');
+        return
+        res.redirect('/');
     }
 }
 
 export async function detallePublicacion(req,res){
-    let user = null;
+    try {
+
+        let user = null;
         if(req.session.user){
             user = await Usuario.findByPk(req.session.user);
         }
 
     const publicacion =
         await Publicacion.findByPk(
-            req.params.id,
+            parseInt(req.params.id),
             {
                 include:[
                     Fotografia,
                     Usuario,
+                    Etiqueta
                 ]
             }
         );
 
     if(!publicacion){
 
-        return res.redirect('/');
+        res.redirect('/');
+        return 
     }
+
+if(
+    !publicacion.Fotografia ||
+    publicacion.Fotografia.length === 0
+){
+    res.redirect('/');
+        return
+}
+
+
+const foto = publicacion.Fotografia[0];
+
+const comentarios = await Comentario.findAll({
+    where:{
+        fotografia_id: foto.id
+    },
+    include:[Usuario]
+});
 
     res.render(
         'publicaciones/detalle',
         {
             user,
             publicacion,
-            comentarios:[]
+            comentarios
         }
     );
+    } catch (error) {
+        console.log(error);
+    }
+    
 }

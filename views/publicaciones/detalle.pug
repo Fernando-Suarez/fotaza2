@@ -35,12 +35,44 @@ block content
                         |  ⭐
 
                     hr
+                    if user
+
+                    h5 Valorar fotografía
+
+                        form(action="/valoraciones" method="POST")
+
+                            input(
+                                type="hidden"
+                                name="fotografia_id"
+                                value=publicacion.Fotografia[0].id
+                            )
+
+                            input(
+                                type="hidden"
+                                name="publicacion_id"
+                                value=publicacion.id
+                            )
+
+                            select.form-select.mb-3(
+                                name="puntaje"
+                                required
+                            )
+                                option(value="") Seleccione una puntuación
+                                option(value="1") 1 ⭐
+                                option(value="2") 2 ⭐⭐
+                                option(value="3") 3 ⭐⭐⭐
+                                option(value="4") 4 ⭐⭐⭐⭐
+                                option(value="5") 5 ⭐⭐⭐⭐⭐
+
+                            button.btn.btn-warning(type="submit")
+                                | Valorar
+                    hr
 
                     h5 Etiquetas
 
-                    if publicacion.Etiquetas
+                    if publicacion.Etiqueta
 
-                        each etiqueta in publicacion.Etiquetas
+                        each etiqueta in publicacion.Etiqueta
 
                             span.badge.bg-primary.me-1
                                 = etiqueta.titulo
@@ -56,7 +88,7 @@ block content
                             .border.rounded.p-2.mb-2
 
                                 strong
-                                //    = comentario.Usuario?.nombre
+                                    = comentario.Usuario.nombre
 
                                 p.mb-0
                                     = comentario.texto
@@ -77,6 +109,12 @@ block content
 
                             input(
                                 type="hidden"
+                                name="fotografia_id"
+                                value=publicacion.Fotografia[0].id
+                            )
+
+                            input(
+                                type="hidden"
                                 name="publicacion_id"
                                 value=publicacion.id
                             )
@@ -92,3 +130,4 @@ block content
 
                             button.btn.btn-primary(type="submit")
                                 | Comentar
+

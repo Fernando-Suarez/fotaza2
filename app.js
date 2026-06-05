@@ -4,7 +4,14 @@ import express from 'express';
 import sequelize from './db/config.js';
 import { connectDatabase } from './models/index.js';
 import authRouter from './routes/authRouter.js';
+import publicacionesRouter from './routes/publicacionesRouter.js';
+import fotografiaRouter from './routes/fotografiasRouter.js';
+import comentariosRouter from './routes/comentarioRouter.js';
+
 import session from 'express-session';
+import { authMiddleware } from './middlewares/authMiddleware.js';
+import { Usuario } from './models/Usuario.js';
+import { getHome } from './controllers/homeController.js';
 
 
 //VARIABLES
@@ -36,12 +43,14 @@ app.set('views', './views');
 
 //ROUTES
 
-app.get('/', (req,res)=>{
-    res.render('home');
-})
+app.get('/',getHome);
 app.use('/auth', authRouter);
+app.use('/publicaciones', publicacionesRouter);
+app.use('/fotografias', fotografiaRouter);
+app.use('/comentarios', comentariosRouter);
 
 app.get('/perfil', (req,res) =>{
+    
     res.status(200).render('perfil',{usuario:{},publicaciones:[],cantidadSeguidores:2,cantidadSeguidos:1});
 })
 
