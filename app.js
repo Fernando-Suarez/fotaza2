@@ -8,7 +8,7 @@ import publicacionesRouter from './routes/publicacionesRouter.js';
 import fotografiaRouter from './routes/fotografiasRouter.js';
 import comentariosRouter from './routes/comentarioRouter.js';
 import valoracionesRouter from './routes/valoracionRouter.js';
-
+import perfilRouter from './routes/perfilRouter.js';
 import session from 'express-session';
 import { authMiddleware } from './middlewares/authMiddleware.js';
 import { Usuario } from './models/Usuario.js';
@@ -50,11 +50,7 @@ app.use('/publicaciones', publicacionesRouter);
 app.use('/fotografias', fotografiaRouter);
 app.use('/comentarios', comentariosRouter);
 app.use('/valoraciones', valoracionesRouter);
-
-app.get('/perfil', (req,res) =>{
-    
-    res.status(200).render('perfil',{usuario:{},publicaciones:[],cantidadSeguidores:2,cantidadSeguidos:1});
-})
+app.use('/perfil', perfilRouter);
 
 //CONEXION DB
     try {
