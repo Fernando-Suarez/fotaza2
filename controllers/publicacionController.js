@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { Fotografia } from "../models/Fotografia.js";
 import { Publicacion } from "../models/Publicacion.js";
 import { Usuario } from "../models/Usuario.js";
@@ -6,8 +7,6 @@ import { validarFotografia } from "../utils/validaciones/fotografiaValidacion.js
 import { validarPublicacion } from "../utils/validaciones/publicacionValidacion.js";
 import { Comentario } from "../models/Comentario.js";
 import { Valoracion } from "../models/Valoracion.js";
-import { where } from "sequelize";
-
 export async function crearPublicacion(req,res){
 
     try{
@@ -78,6 +77,26 @@ export async function crearPublicacion(req,res){
 
         });
 
+        const etiquetasTexto = req.body.etiquetas;
+
+if(etiquetasTexto){
+
+    const etiquetas = etiquetasTexto
+        .split(',')
+        .map(e => e.trim())
+        .filter(e => e.length > 0);
+
+    for(const titulo of etiquetas){
+
+        const [etiqueta] =
+            await Etiqueta.findOrCreate({
+                where:{ titulo }
+            });
+
+        await publicacion.addEtiqueta(etiqueta);
+    }
+}
+
         res.redirect(`/publicaciones/${publicacion.id}`);
         return 
 
@@ -90,6 +109,7 @@ export async function crearPublicacion(req,res){
     }
 }
 
+
 export async function detallePublicacion(req,res){
     try {
 
@@ -97,7 +117,6 @@ export async function detallePublicacion(req,res){
         if(req.session.user){
             user = await Usuario.findByPk(req.session.user);
         }
-
     const publicacion =
         await Publicacion.findByPk(
             parseInt(req.params.id),
@@ -163,4 +182,32 @@ if(valoraciones.length > 0){
         console.log(error);
     }
     
+}
+
+
+export const buscarPublicaciones = async (req,res)=>{
+    console.log('BUSCAR ETIEQUETA :  ' + req.query.etiqueta );
+    try {
+        const publicaciones = await Publicacion.findAll({
+        include:[
+            {
+                model: Etiqueta,
+                where:{
+                    titulo:{
+                        [Op.iLike]: `%${req.query.etiqueta}%`
+                    }
+                }
+            }
+        ]
+    });
+        res.render('home', {
+            publicaciones,
+            etiquetaBuscada: req.query.etiqueta
+        });
+    } catch (error) {
+        console.log(error);
+        res.redirect('/');
+    }
+    
+
 }

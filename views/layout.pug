@@ -43,13 +43,21 @@ html(lang="es")
                             a.nav-link(href="/") Home
 
                         li.nav-item
-                            a.nav-link(href="/publicaciones") Publicaciones
-
-                        li.nav-item
-                            a.nav-link(href="/buscar") Buscar
-
-                        li.nav-item
                             a.nav-link(href="/notificaciones") Notificaciones
+
+                    form.d-flex.me-3(
+                        action="/publicaciones/buscar"
+                        method="GET"
+                    )
+
+                        input.form-control.me-2(
+                            type="search"
+                            name="etiqueta"
+                            placeholder="Buscar etiqueta..."
+                        )
+
+                        button.btn.btn-outline-light(type="submit")
+                            i.bi.bi-search
 
                     ul.navbar-nav.ms-auto
 
