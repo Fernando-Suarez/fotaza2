@@ -9,6 +9,7 @@ import fotografiaRouter from './routes/fotografiasRouter.js';
 import comentariosRouter from './routes/comentarioRouter.js';
 import valoracionesRouter from './routes/valoracionRouter.js';
 import perfilRouter from './routes/perfilRouter.js';
+import seguidorRouter from './routes/seguidorRouter.js'
 import session from 'express-session';
 import { authMiddleware } from './middlewares/authMiddleware.js';
 import { Usuario } from './models/Usuario.js';
@@ -51,6 +52,7 @@ app.use('/fotografias', fotografiaRouter);
 app.use('/comentarios', comentariosRouter);
 app.use('/valoraciones', valoracionesRouter);
 app.use('/perfil', perfilRouter);
+app.use('/seguir', seguidorRouter);
 
 //CONEXION DB
     try {

@@ -76,14 +76,28 @@ block content
 
             if user && user.id !== usuario.id
 
-                form(
-                    action=`/seguir/${usuario.id}`
-                    method="POST"
-                    class="mt-3"
-                )
+                if siguiendo
 
-                    button.btn.btn-primary(type="submit")
-                        | Seguir
+                    form(
+                        action=`/seguir/${usuario.id}/unfollow`
+                        method="POST"
+                        class="mt-3"
+                    )
+
+                        button.btn.btn-danger(type="submit")
+                            | Dejar de seguir
+
+                else
+
+
+                    form(
+                        action=`/seguir/${usuario.id}`
+                        method="POST"
+                        class="mt-3"
+                    )
+
+                        button.btn.btn-primary(type="submit")
+                            | Seguir
 
     h3.mb-3 Publicaciones
 

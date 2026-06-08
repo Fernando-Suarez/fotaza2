@@ -21,7 +21,11 @@ block content
 
                     p.text-muted
                         | Autor:
-                        = publicacion.Usuario ? publicacion.Usuario.nombre : 'Desconocido'
+                        if publicacion.Usuario
+                            a.ms-1(
+                                href=`/perfil/${publicacion.Usuario.id}`
+                            )
+                                = publicacion.Usuario ? publicacion.Usuario.nombre : 'Desconocido'
 
                     p
                         = publicacion.descripcion
@@ -90,8 +94,8 @@ block content
                         each comentario in comentarios
 
                             .border.rounded.p-2.mb-2
-                                //img.rounded-circle(
-                                    src=`/usuarios/avatar/${comentario.Usuario.id}`
+                                img.rounded-circle(
+                                    src=`/perfil/avatar/${comentario.Usuario.id}`
                                     width="40"
                                     height="40"
                                     )
