@@ -1,7 +1,8 @@
-import { Json } from "sequelize/lib/utils"
 import { Fotografia } from "../models/Fotografia.js"
 import { Publicacion } from "../models/Publicacion.js"
 import { Usuario } from "../models/Usuario.js"
+import { Seguidor } from "../models/Seguidor.js"
+
 
 export const getPerfil = async (req,res)=>{
     try {
@@ -14,16 +15,95 @@ export const getPerfil = async (req,res)=>{
             ]
         })
         const publicaciones = user.Publicacions;
+        const cantidadSeguidores = await Seguidor.count({
+    where:{
+        seguido_id: user.id
+    }
+});
+
+const cantidadSeguidos = await Seguidor.count({
+    where:{
+        seguidor_id: user.id
+    }
+});
+
         res.render('perfil',{
             user,
             usuario:user,
-            publicaciones:publicaciones});
+            publicaciones:publicaciones,
+            cantidadSeguidores,
+            cantidadSeguidos
+        });
     } catch (error) {
         console.log(error);
         res.redirect('/');
     }
 
 }
+
+
+export const verPerfilUsuario = async (req,res)=>{
+    try {
+        const usuarioSeguido = await Usuario.findByPk(req.params.id,{
+        include:[
+            {
+                model: Publicacion,
+                include:[Fotografia]
+            }
+        ]
+    });
+
+    if(!usuarioSeguido){
+        return res.redirect('/');
+    }
+
+    const cantidadSeguidores = await Seguidor.count({
+        where:{
+            seguido_id: usuarioSeguido.id
+        }
+    });
+
+    const cantidadSeguidos = await Seguidor.count({
+        where:{
+            seguidor_id: usuarioSeguido.id
+        }
+    });
+
+    let siguiendo = false;
+
+if(req.session.user){
+
+    const relacion = await Seguidor.findOne({
+        where:{
+            seguidor_id:req.session.user,
+            seguido_id:usuarioSeguido.id
+        }
+    });
+
+    siguiendo = !!relacion;
+}
+
+    let user = null;
+
+    if(req.session.user){
+        user = await Usuario.findByPk(req.session.user);
+    }
+
+    res.render('perfil',{
+        user,
+        usuario: usuarioSeguido,
+        publicaciones: usuarioSeguido.Publicacions,
+        cantidadSeguidores,
+        cantidadSeguidos,
+        siguiendo
+    });
+    } catch (error) {
+        console.log(error)
+        res.redirect('/')
+    }
+
+}
+
 
 export const obtenerAvatar = async (req,res)=>{
 
@@ -58,3 +138,4 @@ export const actualizarAvatar = async (req,res)=>{
         res.redirect('/perfil');
     }
 }
+

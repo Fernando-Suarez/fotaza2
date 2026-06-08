@@ -1,12 +1,13 @@
 import {Router} from 'express';
 import { authMiddleware } from '../middlewares/authMiddleware.js';
 import { upload } from '../utils/multer.js';
-import { getPerfil,obtenerAvatar,actualizarAvatar } from '../controllers/perfilController.js';
+import { getPerfil,obtenerAvatar,actualizarAvatar,verPerfilUsuario } from '../controllers/perfilController.js';
 
 
 const router = Router();
 
 router.get('/',authMiddleware, getPerfil );
+router.get('/:id', verPerfilUsuario);
 router.get('/avatar/:id', obtenerAvatar);
 router.post(
     '/avatar',
