@@ -154,7 +154,22 @@ Notificacion.belongsTo(Usuario, {
     foreignKey: "usuario_destino",
     as: "destinatario",
 });
+Usuario.hasMany(Notificacion, {
+    foreignKey: "usuario_origen",
+    as: "notificacionesGeneradas"
+});
 
+Notificacion.belongsTo(Usuario, {
+    foreignKey: "usuario_origen",
+    as: "origen"
+});
+Fotografia.hasMany(Notificacion, {
+    foreignKey: "fotografia_id"
+});
+
+Notificacion.belongsTo(Fotografia, {
+    foreignKey: "fotografia_id"
+});
 /* ==========================
     SEGUIDORES
 ========================== */

@@ -1,0 +1,37 @@
+extends layout
+
+block content
+
+    h2.mb-4 Notificaciones
+
+    if notificaciones.length > 0
+
+        each notificacion in notificaciones
+
+            .card.mb-2
+
+                .card-body
+
+                    if notificacion.tipo === 'SEGUIDOR'
+
+                        p.mb-0
+                            strong= notificacion.origen.nombre
+                            |  comenzó a seguirte
+
+                    else if notificacion.tipo === 'COMENTARIO'
+
+                        p.mb-0
+                            strong= notificacion.origen.nombre
+                            |  comentó tu fotografia
+
+                    else if notificacion.tipo === 'VALORACION'
+
+                        p.mb-0
+                            strong= notificacion.origen.nombre
+                            |  valoró tu fotografia
+
+                    else
+
+                        .alert.alert-info
+
+                            | No tienes notificaciones.

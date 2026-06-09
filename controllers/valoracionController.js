@@ -1,3 +1,6 @@
+import { Fotografia } from "../models/Fotografia.js";
+import { Notificacion } from "../models/Notificacion.js";
+import { Publicacion } from "../models/Publicacion.js";
 import { Usuario } from "../models/Usuario.js";
 import { Valoracion } from "../models/Valoracion.js"
 import { validarValoracion } from "../utils/validaciones/valoracionValidacion.js";
@@ -12,8 +15,8 @@ export const crearValoracion = async (req,res) => {
         }
         const {fotografia_id,publicacion_id,puntaje} = req.body;
         const validacion = validarValoracion({puntaje: parseInt(puntaje)});
-        console.log('VALIDACION : ' + JSON.stringify(validacion));
-        if(!validacion.succes){
+
+        if(!validacion.success){
             res.redirect('/');
             return;
         }
@@ -26,15 +29,35 @@ export const crearValoracion = async (req,res) => {
                     fotografia_id
                 }})
         if(existeValoracion){
-            existeValoracion.update({puntaje: parseInt(puntaje)});
+            await existeValoracion.update({puntaje: parseInt(puntaje)});
                 res.redirect(`/publicaciones/${publicacion_id}`);
                 return;
         }else{
+
             await Valoracion.create({
-                puntaje,
+                puntaje: parseInt(puntaje),
                 usuario_id: user.id,
                 fotografia_id})
+
+            const foto = await Fotografia.findByPk(fotografia_id,{
+                include:[Publicacion]
+            })
+                if(!foto){
+                    res.redirect('/');
+                    return;
+                }
+                
+                if(foto.Publicacion.usuario_id !== req.session.user){
+                    await Notificacion.create({
+                        tipo: 'VALORACION',
+                        usuario_destino: foto.Publicacion.usuario_id ,
+                        usuario_origen: req.session.user,
+                        fotografia_id: fotografia_id ,
+                        leida: false
+                    });        
+                }
         }
+        
             res.redirect(`/publicaciones/${publicacion_id}`);
     } catch (error) {
         console.log(error);

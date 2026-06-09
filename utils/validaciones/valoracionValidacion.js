@@ -10,6 +10,6 @@ export function validarValoracion(valoracion){
     if(!result.success){
         return {success: false, errors: z.flattenError(result.error).fieldErrors};
     }else{
-        return {succes: true, data: result.data};
+        return {success: true, data: result.data};
     }
 }

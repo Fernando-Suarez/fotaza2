@@ -84,23 +84,27 @@ export async function crearPublicacion(req,res){
                 .composite([
                     {
                         input: Buffer.from(`
-                            <svg width="400" height="80">
-                            <text
-                            x="10"
-                            y="50"
-                            font-size="30"
-                            fill="rgba(0,0,0,0.5)">
-                            © ${usuario.nombre}
-                            </text>
+                            <svg width="150" height="40">
+                                <style>
+                                    .title {
+                                        fill: white;
+                                        fill-opacity: 0.5;
+                                        font-size: 16px;
+                                        font-family: Arial, sans-serif;
+                                    }
+                                </style>
+
+                                <text x="10" y="25" class="title">
+                                    © ${usuario.nombre}
+                                </text>
                             </svg>
                             `),
                             gravity: 'southeast'
                         }
-                    ])
+                    ])  
                 .jpeg({ quality: 80 })
                 .toBuffer();}
 
-        
         await Fotografia.create({
 
             imagen,

@@ -10,6 +10,7 @@ import comentariosRouter from './routes/comentarioRouter.js';
 import valoracionesRouter from './routes/valoracionRouter.js';
 import perfilRouter from './routes/perfilRouter.js';
 import seguidorRouter from './routes/seguidorRouter.js'
+import notificacionRouter from './routes/notificacionRouter.js';
 import session from 'express-session';
 import { authMiddleware } from './middlewares/authMiddleware.js';
 import { Usuario } from './models/Usuario.js';
@@ -53,6 +54,7 @@ app.use('/comentarios', comentariosRouter);
 app.use('/valoraciones', valoracionesRouter);
 app.use('/perfil', perfilRouter);
 app.use('/seguir', seguidorRouter);
+app.use('/notificaciones', notificacionRouter);
 
 //CONEXION DB
     try {

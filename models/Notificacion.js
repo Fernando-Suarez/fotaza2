@@ -9,7 +9,7 @@ Notificacion.init({
         primaryKey: true,
         autoIncrement: true
     },tipo:{
-        type: DataTypes.ENUM('COMENTARIO','VALORACION','LIKE','SEGUIDOR'),
+        type: DataTypes.ENUM('COMENTARIO','VALORACION','SEGUIDOR'),
         allowNull: false,
     },usuario_destino:{
         type: DataTypes.INTEGER,
@@ -19,7 +19,7 @@ Notificacion.init({
         allowNull: false
     },fotografia_id:{
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: true
     },leida: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

@@ -1,7 +1,9 @@
 import { Fotografia } from "../models/Fotografia.js";
+import { Notificacion } from "../models/Notificacion.js";
 import { Publicacion } from "../models/Publicacion.js";
 import { Seguidor } from "../models/Seguidor.js";
 import { Usuario } from "../models/Usuario.js";
+
 
 export const seguirUsuario = async (req,res)=>{
     try {
@@ -25,7 +27,16 @@ export const seguirUsuario = async (req,res)=>{
                 seguido_id,
                 seguidor_id
             });
+
+            await Notificacion.create({
+                tipo: 'SEGUIDOR',
+                usuario_destino: seguido_id ,
+                usuario_origen: seguidor_id,
+                fotografia_id: null ,
+                leida: false
+        })
         }
+
 
         res.redirect(`/perfil/${seguido_id}`);
 

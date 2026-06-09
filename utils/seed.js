@@ -31,7 +31,11 @@ try {
             rol: "ADMIN",
             activo: true
         }
-    ]);
+    ],
+    {
+        individualHooks: true
+    }    
+);
 
     console.log("Usuarios creados.");
 
