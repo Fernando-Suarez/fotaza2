@@ -1,4 +1,5 @@
 import { Op } from "sequelize";
+import sharp from 'sharp';
 import { Fotografia } from "../models/Fotografia.js";
 import { Publicacion } from "../models/Publicacion.js";
 import { Usuario } from "../models/Usuario.js";
@@ -7,6 +8,8 @@ import { validarFotografia } from "../utils/validaciones/fotografiaValidacion.js
 import { validarPublicacion } from "../utils/validaciones/publicacionValidacion.js";
 import { Comentario } from "../models/Comentario.js";
 import { Valoracion } from "../models/Valoracion.js";
+
+
 export async function crearPublicacion(req,res){
 
     try{
@@ -59,22 +62,56 @@ export async function crearPublicacion(req,res){
 
                 titulo,
                 descripcion,
-
-                usuario_id:
-                    req.session.user
+                usuario_id:req.session.user
 
             });
 
+        const usuario = await Usuario.findByPk(req.session.user);    
+        let imagen = req.file.buffer;
+        let marcaAgua = false;
+
+        if(licencia === 'COPYRIGHT'){
+            marcaAgua = true;
+            imagen = await sharp(req.file.buffer,{
+                limitInputPixels:false
+            })
+                .resize({
+                    width: 1200,
+                    height: 1200,
+                    fit: 'inside',
+                    withoutEnlargement: true
+                })
+                .composite([
+                    {
+                        input: Buffer.from(`
+                            <svg width="400" height="80">
+                            <text
+                            x="10"
+                            y="50"
+                            font-size="30"
+                            fill="rgba(0,0,0,0.5)">
+                            © ${usuario.nombre}
+                            </text>
+                            </svg>
+                            `),
+                            gravity: 'southeast'
+                        }
+                    ])
+                .jpeg({ quality: 80 })
+                .toBuffer();}
+
+        
         await Fotografia.create({
 
-            imagen:
-                req.file.buffer,
+            imagen,
 
             licencia,
 
-            publicacion_id:
-                publicacion.id
+            publicacion_id:publicacion.id,
 
+            marca_agua: marcaAgua,
+
+            texto_marca_agua: usuario.nombre
         });
 
         const etiquetasTexto = req.body.etiquetas;
@@ -186,7 +223,7 @@ if(valoraciones.length > 0){
 
 
 export const buscarPublicaciones = async (req,res)=>{
-    console.log('BUSCAR ETIEQUETA :  ' + req.query.etiqueta );
+
     try {
         const publicaciones = await Publicacion.findAll({
         include:[
