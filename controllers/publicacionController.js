@@ -229,21 +229,52 @@ if(valoraciones.length > 0){
 export const buscarPublicaciones = async (req,res)=>{
 
     try {
+
+        const {etiqueta,titulo,usuario} = req.query;
+
+        const wherePublicacion = {};
+        const whereUsuario = {};
+        const whereEtiqueta = {};
+
+        if(titulo){
+            wherePublicacion.titulo = {
+                [Op.iLike]: `%${titulo}%`
+            };
+        }
+
+        if(usuario){
+            whereUsuario.nombre = {
+                [Op.iLike]: `%${usuario}%`
+            };
+        }
+
+        if(etiqueta){
+            whereEtiqueta.titulo = {
+                [Op.iLike]: `%${etiqueta}%`
+            };
+        }
+
         const publicaciones = await Publicacion.findAll({
+        where: wherePublicacion,
+        
         include:[
             {
+                model:Usuario,
+                where: whereUsuario,
+                required:false
+            },    
+            {    
                 model: Etiqueta,
-                where:{
-                    titulo:{
-                        [Op.iLike]: `%${req.query.etiqueta}%`
-                    }
-                }
+                where: whereEtiqueta,
+                required:false
+            },
+            {    model:Fotografia
             }
         ]
     });
         res.render('home', {
             publicaciones,
-            etiquetaBuscada: req.query.etiqueta
+            filtros: req.query
         });
     } catch (error) {
         console.log(error);

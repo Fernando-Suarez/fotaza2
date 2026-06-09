@@ -45,19 +45,41 @@ html(lang="es")
                         li.nav-item
                             a.nav-link(href="/notificaciones") Notificaciones
 
-                    form.d-flex.me-3(
+                    form.row.g-2(
                         action="/publicaciones/buscar"
                         method="GET"
                     )
 
-                        input.form-control.me-2(
-                            type="search"
-                            name="etiqueta"
-                            placeholder="Buscar etiqueta..."
-                        )
+                        .col
+                            input.form-control(
+                                type="text"
+                                name="texto"
+                                placeholder="Título o descripción"
+                            )
 
-                        button.btn.btn-outline-light(type="submit")
-                            i.bi.bi-search
+                        .col
+                            input.form-control(
+                                type="text"
+                                name="etiqueta"
+                                placeholder="Etiqueta"
+                            )
+
+                        .col
+                            input.form-control(
+                                type="text"
+                                name="autor"
+                                placeholder="Autor"
+                            )
+
+                        .col
+                            select.form-select(name="licencia")
+                                option(value="") Todas
+                                option(value="COPYRIGHT") Copyright
+                                option(value="SIN_COPYRIGHT") Sin Copyright
+
+                        .col-auto
+                            button.btn.btn-primary(type="submit")
+                                i.bi.bi-search
 
                     ul.navbar-nav.ms-auto
 

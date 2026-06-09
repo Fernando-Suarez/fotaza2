@@ -3,48 +3,49 @@ extends ../layout
 block content
 
     .row.justify-content-center
-    .col-md-6.col-lg-4
+        
+        .col-md-6.col-lg-4
 
-        .card.shadow
+            .card.shadow
 
-        .card-header.bg-dark.text-white.text-center
-            h3.mb-0 Iniciar Sesión
+                .card-header.bg-dark.text-white.text-center
+                    h3.mb-0 Iniciar Sesión
 
-        .card-body
+                .card-body
 
-        form(action="/auth/login" method="POST")
+                    form(action="/auth/login" method="POST")
 
-            .mb-3
-                label.form-label(for="email")
-                | Correo Electrónico
+                        .mb-3
+                            label.form-label(for="email")
+                            | Correo Electrónico
 
-                input.form-control(
-                type="email"
-                id="email"
-                name="email"
-                required
-                placeholder="ejemplo@email.com"
-                )
+                            input.form-control(
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            placeholder="ejemplo@email.com"
+                            )
 
-            .mb-3
-                label.form-label(for="password")
-                | Contraseña
+                        .mb-3
+                            label.form-label(for="password")
+                            | Contraseña
 
-                input.form-control(
-                type="password"
-                id="password"
-                name="password"
-                required
-                placeholder="********"
-                )
+                            input.form-control(
+                            type="password"
+                            id="password"
+                            name="password"
+                            required
+                            placeholder="********"
+                            )
 
-            button.btn.btn-dark.w-100(type="submit")
-                i.bi.bi-box-arrow-in-right
-                |  Ingresar
+                        button.btn.btn-dark.w-100(type="submit")
+                            i.bi.bi-box-arrow-in-right
+                            |  Ingresar
 
-        .card-footer.text-center
+                .card-footer.text-center
 
-            p.mb-0
-            | ¿No tienes cuenta?
-            a.ms-1(href="/auth/signup")
-                | Registrarse
+                    p.mb-0
+                        | ¿No tienes cuenta?
+                        a.ms-1(href="/auth/signup")
+                            | Registrarse
