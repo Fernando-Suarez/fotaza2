@@ -230,11 +230,16 @@ export const buscarPublicaciones = async (req,res)=>{
 
     try {
 
-        const {etiqueta,titulo,usuario} = req.query;
+        const {etiqueta,titulo,usuario,licencia} = req.query;
 
         const wherePublicacion = {};
         const whereUsuario = {};
         const whereEtiqueta = {};
+        const whereFotografia = {};
+
+        if(licencia){
+            whereFotografia.licencia = licencia;
+        }
 
         if(titulo){
             wherePublicacion.titulo = {
@@ -254,6 +259,10 @@ export const buscarPublicaciones = async (req,res)=>{
             };
         }
 
+        const filtrarUsuario = Object.keys(whereUsuario).length > 0;
+        const filtrarEtiqueta = Object.keys(whereEtiqueta).length > 0;
+        const filtrarFotografia = Object.keys(whereFotografia).length > 0;
+
         const publicaciones = await Publicacion.findAll({
         where: wherePublicacion,
         
@@ -261,17 +270,20 @@ export const buscarPublicaciones = async (req,res)=>{
             {
                 model:Usuario,
                 where: whereUsuario,
-                required:false
+                required: filtrarUsuario
             },    
             {    
                 model: Etiqueta,
                 where: whereEtiqueta,
-                required:false
+                required:filtrarEtiqueta
             },
-            {    model:Fotografia
+            {    model:Fotografia,
+                where: whereFotografia,
+                required:filtrarFotografia
             }
         ]
     });
+
         res.render('home', {
             publicaciones,
             filtros: req.query
